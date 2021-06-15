@@ -20,7 +20,7 @@ public interface IPlayerService extends IService<Player> {
 
     public List<PlayerInfo> getPlayerList(PlayerListFilterDto playerListFilterDto);
 
-    public Player getPlayerInfo(int playerId);
+    public PlayerInfo getPlayerInfo(int playerId);
 
     public void newPlayer(Player player);
 

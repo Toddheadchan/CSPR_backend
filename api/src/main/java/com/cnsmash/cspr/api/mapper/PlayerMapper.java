@@ -24,4 +24,6 @@ public interface PlayerMapper extends BaseMapper<Player> {
 
     public PlayerLite getPlayerLite(long playerId);
 
+    public PlayerInfo getPlayerInfo(long playerId);
+
 }

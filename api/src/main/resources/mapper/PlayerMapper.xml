@@ -9,26 +9,26 @@
             resultType="com.cnsmash.cspr.api.vo.PlayerInfo"
             parameterType="com.cnsmash.cspr.api.dto.PlayerListFilterDto">
         select
-        player.`player_id` as playerId,
-        player.`player_tag` as playerTag,
-        player.`avatar`,
-        player.`nation`,
-        player.`region_id` as regionId,
-        player.`main_character` as mainCharacter,
-        player.`main_character_color` as mainCharacterColor,
-        player.`most_character` as mostCharacter,
-        cspr.`cspr`,
-        stats.`tournament_count` as tournamentCount,
-        stats.`set_win` as setWin,
-        stats.`set_lose` as setLose,
-        stats.`set_count` as setCount,
-        stats.`game_win` as gameWin,
-        stats.`game_lose` as gameLose,
-        stats.`game_count` as gameCount,
-        tournament.`date` as tournamentDate,
-        tournament.`name` as tournamentName,
-        tournament.`entrants` as tournamentEntrants,
-        participate.`standing` as tournamentStanding
+            player.`player_id` as playerId,
+            player.`player_tag` as playerTag,
+            player.`avatar`,
+            player.`nation`,
+            player.`region_id` as regionId,
+            player.`main_character` as mainCharacter,
+            player.`main_character_color` as mainCharacterColor,
+            player.`most_character` as mostCharacter,
+            cspr.`cspr`,
+            stats.`tournament_count` as tournamentCount,
+            stats.`set_win` as setWin,
+            stats.`set_lose` as setLose,
+            stats.`set_count` as setCount,
+            stats.`game_win` as gameWin,
+            stats.`game_lose` as gameLose,
+            stats.`game_count` as gameCount,
+            tournament.`date` as tournamentDate,
+            tournament.`name` as tournamentName,
+            tournament.`entrants` as tournamentEntrants,
+            participate.`standing` as tournamentStanding
         from player as player
         left join cspr as cspr on cspr.player_id = player.player_id
         left join stats as stats on stats.player_id = player.player_id
@@ -55,4 +55,36 @@
         from player
         where player_id = #{playerId}
     </select>
+
+    <!-- 根据ID获取选手信息，返回PlayerInfo结构体 -->
+    <select id="getPlayerInfo" resultType="com.cnsmash.cspr.api.vo.PlayerInfo">
+        select
+            player.`player_id` as playerId,
+            player.`player_tag` as playerTag,
+            player.`avatar`,
+            player.`nation`,
+            player.`region_id` as regionId,
+            player.`main_character` as mainCharacter,
+            player.`main_character_color` as mainCharacterColor,
+            player.`most_character` as mostCharacter,
+            cspr.`cspr`,
+            stats.`tournament_count` as tournamentCount,
+            stats.`set_win` as setWin,
+            stats.`set_lose` as setLose,
+            stats.`set_count` as setCount,
+            stats.`game_win` as gameWin,
+            stats.`game_lose` as gameLose,
+            stats.`game_count` as gameCount,
+            tournament.`date` as tournamentDate,
+            tournament.`name` as tournamentName,
+            tournament.`entrants` as tournamentEntrants,
+            participate.`standing` as tournamentStanding
+        from player as player
+        left join cspr as cspr on cspr.`player_id` = player.`player_id`
+        left join stats as stats on stats.`player_id` = player.`player_id`
+        left join tournament as tournament on tournament.`tournament_id` = stats.`last_tournament_id`
+        left join participate as participate on participate.`player_id` = player.`player_id` and participate.`tournament_id` = tournament.`tournament_id`
+        where cspr.`season` = (select max(`season`) from cspr) and player.`player_id` = #{playerId}
+    </select>
+
 </mapper>

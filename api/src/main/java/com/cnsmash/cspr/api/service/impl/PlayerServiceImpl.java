@@ -61,8 +61,8 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
     }
 
     @Override
-    public Player getPlayerInfo(int playerId) {
-        return playerMapper.selectById(playerId);
+    public PlayerInfo getPlayerInfo(int playerId) {
+        return playerMapper.getPlayerInfo(playerId);
     }
 
     public void newPlayer(Player player) {

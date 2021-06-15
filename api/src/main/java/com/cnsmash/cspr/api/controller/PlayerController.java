@@ -57,9 +57,9 @@ public class PlayerController {
 
     @GetMapping("/info/{playerId}")
     @ResponseBody
-    public ApiResult<Player> getPlayerInfo(@PathVariable("playerId") int playerId) {
-        Player playerInfo = iPlayerService.getPlayerInfo(playerId);
-        ApiResult<Player> result = new ApiResult<>();
+    public ApiResult<PlayerInfo> getPlayerInfo(@PathVariable("playerId") int playerId) {
+        PlayerInfo playerInfo = iPlayerService.getPlayerInfo(playerId);
+        ApiResult<PlayerInfo> result = new ApiResult<>();
         return result.ok(playerInfo);
     }
 
