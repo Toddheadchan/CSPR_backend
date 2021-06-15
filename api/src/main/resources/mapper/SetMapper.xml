@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.SetMapper">
+
+    <!--根据playerId与tournamentId获取所有sets（无序）-->
+    <select id="getSetsByPlayerAndTournamentUnOrder" resultType="com.cnsmash.cspr.api.vo.PlayerSet">
+        select
+            `set`.`set_id` as setId,
+            `set`.`player1_id` as myId,
+            `player1`.`player_tag` as myTag,
+            `set`.`player1_score` as myScore,
+            `set`.`player2_id` as oppoId,
+            `player2`.`player_tag` as oppoTag,
+            `set`.`player2_score` as oppoScore,
+            `set`.`round_text` as fullRoundText,
+            `set`.`dq` as dq
+        from `set`
+        left join player as player1 on player1.player_id = `set`.`player1_id`
+        left join player as player2 on player2.player_id = `set`.`player2_id`
+        where (player1_id = #{playerId} or player2_id = #{playerId}) and tournament_id = #{tournamentId}
+    </select>
+
+    <!--根据setId获取set实体-->
+    <select id="queryById" resultType="com.cnsmash.cspr.api.entity.Set">
+        select * from `set` where set_id = #{setId}
+    </select>
+
+    <!--根据playerId与tournamentId获取所有sets（无序）-->
+    <select id="getSetsByPlayer" resultType="com.cnsmash.cspr.api.vo.PlayerSet">
+        select
+            `set`.`set_id` as setId,
+            `set`.`player1_id` as myId,
+            `player1`.`player_tag` as myTag,
+            `set`.`player1_score` as myScore,
+            `set`.`player2_id` as oppoId,
+            `player2`.`player_tag` as oppoTag,
+            `set`.`player2_score` as oppoScore,
+            `set`.`round_text` as fullRoundText,
+            `set`.`dq` as dq
+        from `set`
+        left join player as player1 on player1.player_id = `set`.`player1_id`
+        left join player as player2 on player2.player_id = `set`.`player2_id`
+        where (player1_id = #{playerId} or player2_id = #{playerId})
+    </select>
+
+    <!--账号合并，更新ID，分两次操作-->
+    <update id="updatePlayerId">
+        update `set` set player1_id = #{mainPlayerId} where player1_id = #{subPlayerId};
+        update `set` set player2_id = #{mainPlayerId} where player2_id = #{subPlayerId};
+    </update>
+</mapper>

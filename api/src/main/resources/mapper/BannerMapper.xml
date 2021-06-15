@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.BannerMapper">
+
+    <!--按照时间范围查询比赛-->
+    <select id="getCurrentBannerList" resultType="com.cnsmash.cspr.api.entity.Banner">
+        select * from `banner` where `deadline` > #{now}
+    </select>
+</mapper>

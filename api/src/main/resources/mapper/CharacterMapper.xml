@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.CharacterMapper">
+
+    <!--按照用户ID与角色名称查询角色详细数据-->
+    <select id="getCharacterDataByPlayerAndCharacter" resultType="com.cnsmash.cspr.api.entity.Character">
+        select
+            player_id as playerId,
+            `character`,
+            win,
+            lose,
+            solo,
+            starter,
+            counter,
+            `drop`,
+            character_data as characterData,
+            stage_data as stageData
+        from `character`
+        where player_id = #{playerId} and `character` = #{character}
+    </select>
+
+    <!--根据用户ID获取所有角色数据列表-->
+    <select id="getCharacterByPlayer" resultType="com.cnsmash.cspr.api.entity.Character">
+        select * from `character` where player_id = #{playerId}
+    </select>
+</mapper>

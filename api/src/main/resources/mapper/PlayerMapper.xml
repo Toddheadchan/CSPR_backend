@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.PlayerMapper">
+
+    <!--获取选手列表列表-->
+    <select id="getPlayerList"
+            resultType="com.cnsmash.cspr.api.vo.PlayerInfo"
+            parameterType="com.cnsmash.cspr.api.dto.PlayerListFilterDto">
+        select
+        player.`player_id` as playerId,
+        player.`player_tag` as playerTag,
+        player.`avatar`,
+        player.`nation`,
+        player.`region_id` as regionId,
+        player.`main_character` as mainCharacter,
+        player.`main_character_color` as mainCharacterColor,
+        player.`most_character` as mostCharacter,
+        cspr.`cspr`,
+        stats.`tournament_count` as tournamentCount,
+        stats.`set_win` as setWin,
+        stats.`set_lose` as setLose,
+        stats.`set_count` as setCount,
+        stats.`game_win` as gameWin,
+        stats.`game_lose` as gameLose,
+        stats.`game_count` as gameCount,
+        tournament.`date` as tournamentDate,
+        tournament.`name` as tournamentName,
+        tournament.`entrants` as tournamentEntrants,
+        participate.`standing` as tournamentStanding
+        from player as player
+        left join cspr as cspr on cspr.player_id = player.player_id
+        left join stats as stats on stats.player_id = player.player_id
+        left join tournament as tournament on tournament.tournament_id = stats.last_tournament_id
+        left join participate as participate on participate.player_id = player.player_id and participate.tournament_id = tournament.tournament_id
+        where cspr.`season` = (select max(`season`) from cspr)
+        <if test="regionId != null">
+            and player.`region_id` = #{regionId}
+        </if>
+        <if test="keyword != null">
+            and (player.`keyword` like concat('%',#{keyword,jdbcType=VARCHAR},'%') or player.`player_tag` like concat('%',#{keyword,jdbcType=VARCHAR},'%'))
+        </if>
+        <if test="character != null and character != 'random'">
+            and player.`main_character` = #{character} or player.`most_character` = #{character}
+        </if>
+    </select>
+
+    <!--根据ID获取选手简单信息-->
+    <select id="getPlayerLite" resultType="com.cnsmash.cspr.api.vo.PlayerLite">
+        select
+            player_id as playerId,
+            player_tag as playerTag,
+            avatar
+        from player
+        where player_id = #{playerId}
+    </select>
+</mapper>

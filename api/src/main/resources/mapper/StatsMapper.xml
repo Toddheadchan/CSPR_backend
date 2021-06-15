@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.StatsMapper">
+
+    <!--添加比赛计数-->
+    <update id="updateTournamentCount">
+        update stats
+        set `tournament_count` = `tournament_count` + #{tournamentCount}
+        where `player_id` = #{playerId}
+    </update>
+
+    <!--单个set结果计数-->
+    <update id="updateBySetStats">
+        update stats
+        set
+        `game_win` = `game_win` + #{gameWin},
+        `game_lose` = `game_lose` + #{gameLose},
+        `game_count` = `game_count` + #{gameWin} + #{gameLose},
+        <if test="gameWin > gameLose">
+            `set_win` = `set_win` + 1,
+        </if>
+        <if test="gameLose > gameWin">
+            `set_lose` = `set_lose` + 1,
+        </if>
+        `set_count` = `set_count` + 1
+        where `player_id` = #{playerId}
+    </update>
+
+    <!--更新最近比赛ID-->
+    <update id="updateLastTournament">
+        update stats
+        set `last_tournament_id` = (
+            select `tournament`.`tournament_id`
+            from `tournament`
+            left join `participate` on `participate`.`tournament_id` = `tournament`.`tournament_id`
+            where `participate`.`player_id` = #{playerId} and `participate`.`is_disqualified` != 1
+            order by `tournament`.`date` desc
+            limit 1
+        )
+        where `player_id` = #{playerId}
+    </update>
+
+</mapper>

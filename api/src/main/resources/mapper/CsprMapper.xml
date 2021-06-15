@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.CsprMapper">
+
+    <!--获取排名列表-->
+    <select id="getRegionRanking" resultType="com.cnsmash.cspr.api.dto.RankingDto">
+        select player.`player_id`,
+        player.`player_tag`,
+        player.`avatar`,
+        player.`nation`,
+        player.`region_id`,
+        player.`main_character`,
+        player.`main_character_color`,
+        cspr.`cspr`
+        from player left join cspr on cspr.player_id = player.player_id
+        where cspr.`season` = #{season} and player.`region_id` = #{regionId}
+        ORDER BY cspr.`ranking`
+        <if test="limit != 0">
+            limit #{limit}
+        </if>
+    </select>
+</mapper>

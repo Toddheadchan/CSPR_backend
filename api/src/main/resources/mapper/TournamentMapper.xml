@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.TournamentMapper">
+
+    <!--按照时间范围查询比赛-->
+    <select id="getTournamentLiteInTimeRange" resultType="com.cnsmash.cspr.api.dto.TournamentLiteDto">
+        select
+            `tournament`.`name`,
+            `tournament`.`date`,
+            `tournament`.`entrants`,
+            `tournament`.`cspr_rank` as csprRank,
+            `tournament`.`cspr_rate` as csprRate,
+            `tournament`.`online`,
+            `league`.`logo`,
+            `league`.`region_id` as regionId
+        from `tournament`
+        left join `league` on `league`.`league_id` = `tournament`.`league_id`
+        where timestamp(`date`) between #{startTime} and #{endTime} order by `date`
+    </select>
+
+    <!--获取最近结束比赛列表-->
+    <select id="getRecentTournament" resultType="com.cnsmash.cspr.api.vo.TournamentDetail">
+        select
+            `tournament`.`tournament_id` as tournamentId,
+            `tournament`.`league_id` as leagueId,
+            `tournament`.`slug`,
+            `tournament`.`type`,
+            `tournament`.`name`,
+            `tournament`.`date`,
+            `tournament`.`season`,
+            `tournament`.`status`,
+            `tournament`.`entrants`,
+            `tournament`.`cspr_rate` as csprRate,
+            `tournament`.`cspr_rank` as csprRank,
+            `tournament`.`online`,
+            `tournament`.`display_result` as displayResult,
+            `tournament`.`stream`,
+            `tournament`.`vod`,
+            `league`.`region_id` as regionId,
+            `league`.`logo`
+        from `tournament`
+        left join `league` on `league`.`league_id` = `tournament`.`league_id`
+        where `tournament`.status = 2
+        order by `tournament`.`date` desc
+        limit 25
+    </select>
+
+    <!--获取选手页面比赛列表-->
+    <select id="getPlayerTournamentList"
+            resultType="com.cnsmash.cspr.api.vo.PlayerTournament"
+            parameterType="com.cnsmash.cspr.api.dto.PlayerTournamentFilterDto">
+        select
+            tournament.`tournament_id` as tournamentId,
+            participate.`player_id` as playerId,
+            tournament.`type`,
+            tournament.`date`,
+            league.`league_id`,
+            league.`name` as leagueName,
+            tournament.`name`,
+            tournament.`entrants`,
+            participate.`standing`,
+            participate.`is_disqualified` as isDisqualified
+        from tournament
+        left join participate on participate.tournament_id = tournament.tournament_id
+        left join league on league.league_id = tournament.league_id
+        where participate.player_id = #{playerId}
+        <if test="keyword != ''">
+            and tournament.`name` like concat('%',#{keyword,jdbcType=VARCHAR},'%')
+        </if>
+        order by tournament.date desc
+    </select>
+
+    <!--添加比赛结果字符串-->
+    <update id="setDisplayResult">
+        update tournament set display_result = #{displayResultStr}
+        where tournament_id = #{tournamentId}
+    </update>
+
+    <!--获取比赛列表-->
+    <select id="getTournamentList"
+            parameterType="com.cnsmash.cspr.api.dto.TournamentFilterDto"
+            resultType="com.cnsmash.cspr.api.vo.TournamentDetail">
+        select
+        `tournament`.`tournament_id` as tournamentId,
+        `tournament`.`league_id` as leagueId,
+        `league`.`name` as leagueName,
+        `tournament`.`slug`,
+        `tournament`.`type`,
+        `tournament`.`name`,
+        `tournament`.`date`,
+        `tournament`.`season`,
+        `tournament`.`status`,
+        `tournament`.`entrants`,
+        `tournament`.`cspr_rate` as csprRate,
+        `tournament`.`cspr_rank` as csprRank,
+        `tournament`.`online`,
+        `tournament`.`display_result` as displayResult,
+        `tournament`.`stream`,
+        `tournament`.`vod`,
+        `league`.`region_id` as regionId,
+        `league`.`logo`
+        from `tournament`
+        left join `league` on `league`.`league_id` = `tournament`.`league_id`
+        <where>
+            <if test="keyword != null">
+                and tournament.`name` like concat('%',#{keyword,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="regionId != 0 and regionId != null">
+                and league.`region_id` = #{regionId}
+            </if>
+            <if test="startTime != null">
+                and tournament.`date` > #{startTime}
+            </if>
+            <if test="endTime != null">
+                and #{endTime} > tournament.`date`
+            </if>
+        </where>
+        order by `tournament`.`date` desc
+    </select>
+
+    <!--根据比赛ID获取比赛详细信息-->
+    <select id="getTournamentDetail" resultType="com.cnsmash.cspr.api.vo.TournamentDetail">
+        select
+            `tournament`.`tournament_id` as tournamentId,
+            `tournament`.`league_id` as leagueId,
+            `league`.`name` as leagueName,
+            `tournament`.`slug`,
+            `tournament`.`type`,
+            `tournament`.`name`,
+            `tournament`.`date`,
+            `tournament`.`season`,
+            `tournament`.`status`,
+            `tournament`.`entrants`,
+            `tournament`.`cspr_rate` as csprRate,
+            `tournament`.`cspr_rank` as csprRank,
+            `tournament`.`online`,
+            `tournament`.`display_result` as displayResult,
+            `tournament`.`stream`,
+            `tournament`.`vod`,
+            `league`.`region_id` as regionId,
+            `league`.`logo`
+        from `tournament`
+        left join `league` on `league`.`league_id` = `tournament`.`league_id`
+        where `tournament`.`tournament_id` = #{tournamentId}
+    </select>
+</mapper>

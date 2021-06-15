@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnsmash.cspr.api.mapper.GameMapper">
+
+    <!--根据playerId与setId获取所有game（无序）-->
+    <select id="getGamesByPlayerAndSetUnOrder" resultType="com.cnsmash.cspr.api.vo.PlayerGame">
+        select
+            `game`.`game_id` as gameId,
+            `game`.`game_index` as gameIndex,
+            `set`.`player1_id` as myId,
+            `game`.`player1_stock` as myStock,
+            `game`.`player1_character` as myCharacter,
+            `set`.`player2_id` as oppoId,
+            `game`.`player2_stock` as oppoStock,
+            `game`.`player2_character` as oppoCharacter,
+            `game`.`stage`,
+            if (`game`.`winner_id` = `set`.`player1_id`, 1, 0) as `result`
+        from `game`
+        left join `set` on `set`.set_id = game.set_id
+        <!--
+        left join player as player1 on player1.player_id = `set`.`player1_id`
+        left join player as player2 on player2.player_id = `set`.`player2_id`
+        -->
+        where (`set`.player1_id = #{playerId} or `set`.player2_id = #{playerId}) and `set`.`set_id` = #{setId}
+        order by `game`.`game_index`
+    </select>
+
+    <!-- 根据setIdhuoqu获取game列表 -->
+    <select id="getGameBySetId" resultType="com.cnsmash.cspr.api.entity.Game">
+        select * from `game`
+        where `game`.`set_id` = #{setId}
+        order by `game`.`game_index`
+    </select>
+</mapper>
