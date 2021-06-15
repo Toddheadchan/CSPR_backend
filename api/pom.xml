@@ -90,7 +90,7 @@
         </dependency>
         <dependency>
             <groupId>com.cnsmash.cspr</groupId>
-            <artifactId>framework</artifactId>
+            <artifactId>root</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
