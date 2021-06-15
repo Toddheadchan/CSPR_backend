@@ -6,7 +6,6 @@
         <groupId>com.cnsmash.cspr</groupId>
         <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>backend</artifactId>
     <name>backend</name>
