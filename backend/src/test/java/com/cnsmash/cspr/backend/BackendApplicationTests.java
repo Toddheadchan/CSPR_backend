@@ -23,6 +23,8 @@ import java.util.List;
 @SpringBootTest
 class BackendApplicationTests {
 
+    /*
+
     @Resource
     ITournamentService iTournamentService;
 
@@ -66,5 +68,6 @@ class BackendApplicationTests {
         CharacterSumupManager characterSumupManager = new CharacterSumupManager();
         characterSumupManager.getMostCharacter(1713595);
     }
+     */
 
 }

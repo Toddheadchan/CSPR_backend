@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ApiApplicationTests {
 
+    /*
     @Autowired
     IParticipateService iParticipateService;
 
@@ -31,5 +32,6 @@ class ApiApplicationTests {
     void combinePlayer() {
         iPlayerService.attachPlayerId(2054273,1713595);
     }
+     */
 
 }
