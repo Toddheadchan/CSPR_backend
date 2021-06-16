@@ -10,7 +10,7 @@
     <artifactId>framework</artifactId>
     <name>framework</name>
     <description>common framework for CSPR server</description>
-    <packaging>jar</packaging>
+<!--    <packaging>jar</packaging>-->
 <!--    <properties>-->
 <!--        <java.version>1.8</java.version>-->
 <!--    </properties>-->
