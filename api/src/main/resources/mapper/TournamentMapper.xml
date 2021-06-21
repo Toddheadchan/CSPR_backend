@@ -145,4 +145,12 @@
         left join `league` on `league`.`league_id` = `tournament`.`league_id`
         where `tournament`.`tournament_id` = #{tournamentId}
     </select>
+
+    <!-- 根据赛季编号获取比赛列表 -->
+    <select id="getTournamentBySeason" resultType="com.cnsmash.cspr.api.entity.Tournament">
+        select *
+        from tournament
+        where tournament.season = #{season} and tournament.status = 2
+        order by tournament.date
+    </select>
 </mapper>

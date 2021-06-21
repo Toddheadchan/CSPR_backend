@@ -108,10 +108,15 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- api模块依赖 -->
+        <!-- 模块依赖 -->
         <dependency>
             <groupId>com.cnsmash.cspr</groupId>
             <artifactId>api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cnsmash.cspr</groupId>
+            <artifactId>framework</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

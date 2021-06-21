@@ -7,13 +7,13 @@
     <!--获取排名列表-->
     <select id="getRegionRanking" resultType="com.cnsmash.cspr.api.dto.RankingDto">
         select player.`player_id`,
-        player.`player_tag`,
-        player.`avatar`,
-        player.`nation`,
-        player.`region_id`,
-        player.`main_character`,
-        player.`main_character_color`,
-        cspr.`cspr`
+            player.`player_tag`,
+            player.`avatar`,
+            player.`nation`,
+            player.`region_id`,
+            player.`main_character`,
+            player.`main_character_color`,
+            cspr.`cspr`
         from player left join cspr on cspr.player_id = player.player_id
         where cspr.`season` = #{season} and player.`region_id` = #{regionId}
         ORDER BY cspr.`ranking`

@@ -33,9 +33,7 @@ public class ParticipateServiceImpl extends ServiceImpl<ParticipateMapper, Parti
     ISetService iSetService;
 
     public List<Participate> getPlayerInTournament(long tournamentId) {
-        Map<String, Object> queryMap = new HashMap<>();
-        queryMap.put("tournament_id", tournamentId);
-        return participateMapper.selectByMap(queryMap);
+        return participateMapper.getPlayerInTournament(tournamentId);
     }
 
     public String countTournamentCharacter(long tournamentId, long playerId) {

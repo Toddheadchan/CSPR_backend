@@ -37,6 +37,7 @@ public class Log implements Serializable {
     public Log() {}
 
     public Log(long playerId, long tournamentId, int oldCspr, int newCspr, int standing) {
+        this.logId = String.valueOf(playerId) + "-" + String.valueOf(tournamentId);
         this.playerId = playerId;
         this.tournamentId = tournamentId;
         this.oldCspr = oldCspr;

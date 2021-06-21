@@ -89,6 +89,8 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- 同级模块依赖 -->
         <dependency>
             <groupId>com.cnsmash.cspr</groupId>
             <artifactId>framework</artifactId>

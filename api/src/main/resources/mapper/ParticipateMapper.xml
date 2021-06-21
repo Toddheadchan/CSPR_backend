@@ -10,4 +10,10 @@
         set player_id = #{mainPlayerId}
         where player_id = #{subPlayerId}
     </update>
+
+    <select id="getPlayerInTournament" resultType="com.cnsmash.cspr.api.entity.Participate">
+        select * from `participate`
+        where `participate`.`tournament_id` = #{tournamentId}
+        order by `participate`.`standing`
+    </select>
 </mapper>

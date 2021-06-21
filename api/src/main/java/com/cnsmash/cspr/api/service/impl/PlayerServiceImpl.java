@@ -71,7 +71,7 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
         statsMapper.insert(stats);
         Cspr cspr = new Cspr(player.getPlayerId());
         csprMapper.insert(cspr);
-        Log log = new Log(player.getPlayerId(), -1, 1500, 1500, -1);
+        Log log = new Log(player.getPlayerId(), 0, 1500, 1500, -1);
         logMapper.insert(log);
     }
 

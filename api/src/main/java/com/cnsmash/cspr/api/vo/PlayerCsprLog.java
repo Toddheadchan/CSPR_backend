@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 @Data
 public class PlayerCsprLog {
 
+    @ApiModelProperty("记录ID")
+    private String logId;
+
     @ApiModelProperty("日期")
     private LocalDateTime date;
 

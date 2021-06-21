@@ -124,8 +124,6 @@ public class TournamentServiceImpl extends ServiceImpl<TournamentMapper, Tournam
     }
 
     public List<Tournament> getTournamentBySeason(int season) {
-        LocalDateTime startTime = SeasonUtil.getSeasonStartDate(season);
-        LocalDateTime endTime = SeasonUtil.getSeasonEndDate(season);
-        return tournamentMapper.getTournamentBySeason(startTime, endTime);
+        return tournamentMapper.getTournamentBySeason(season);
     }
 }

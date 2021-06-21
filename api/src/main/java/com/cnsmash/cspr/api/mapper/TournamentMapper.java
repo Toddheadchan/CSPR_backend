@@ -73,6 +73,11 @@ public interface TournamentMapper extends BaseMapper<Tournament> {
      */
     public List<TournamentStanding> getTournamentStanding(long tournamentId);
 
-    public List<Tournament> getTournamentBySeason(LocalDateTime startTime, LocalDateTime endTime);
+    /**
+     * 根据赛季编号获取比赛列表
+     * @param season 赛季编号
+     * @return 对应比赛列表，按照比赛时间顺序
+     */
+    public List<Tournament> getTournamentBySeason(int season);
 
 }

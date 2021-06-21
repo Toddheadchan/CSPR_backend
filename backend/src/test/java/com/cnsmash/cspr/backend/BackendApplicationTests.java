@@ -5,6 +5,7 @@ import com.cnsmash.cspr.api.service.ITournamentService;
 import com.cnsmash.cspr.api.utils.ApiSpringUtil;
 import com.cnsmash.cspr.backend.script.character.CharacterStatsManager;
 import com.cnsmash.cspr.backend.script.character.CharacterSumupManager;
+import com.cnsmash.cspr.backend.script.cspr.CsprManager;
 import com.cnsmash.cspr.backend.smashgg.script.LeagueFetch;
 import com.cnsmash.cspr.backend.smashgg.script.TournamentFetch;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,13 @@ import java.util.List;
 @SpringBootTest
 class BackendApplicationTests {
 
-    /*
+
+    @Test
+    void csprTest() {
+        CsprManager csprManager = new CsprManager();
+        csprManager.calculate(0);
+        csprManager.calculate(1);
+    }
 
     @Resource
     ITournamentService iTournamentService;
@@ -33,7 +40,8 @@ class BackendApplicationTests {
     }
 
     @Test
-    void test() {
+    void getAllTournament() {
+        LeagueFetch.getLeagueByOwner(950793, 1);
         LeagueFetch.getLeagueByOwner(1060133, 2);
     }
 
@@ -68,6 +76,5 @@ class BackendApplicationTests {
         CharacterSumupManager characterSumupManager = new CharacterSumupManager();
         characterSumupManager.getMostCharacter(1713595);
     }
-     */
 
 }

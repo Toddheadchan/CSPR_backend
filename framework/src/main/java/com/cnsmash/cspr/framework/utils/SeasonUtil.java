@@ -1,7 +1,10 @@
 package com.cnsmash.cspr.framework.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDateTime;
 
+@Slf4j
 public class SeasonUtil {
 
     /**
@@ -15,7 +18,7 @@ public class SeasonUtil {
         if (year < 2021) {
             return 0;
         }
-        return (year - 2021) * 2 + (month <=6 ? 0 : 1);
+        return (year - 2021) * 2 + (month <= 6 ? 0 : 1) + 1;
     }
 
     /**

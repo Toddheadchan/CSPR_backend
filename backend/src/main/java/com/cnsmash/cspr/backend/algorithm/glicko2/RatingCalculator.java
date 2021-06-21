@@ -66,9 +66,11 @@ public class RatingCalculator {
             } else {
                 // if a player does not compete during the rating period, then only Step 6 applies.
                 // the player's rating and volatility parameters remain the same but deviation increases
+                /*
                 player.setWorkingRating(player.getGlicko2Rating());
                 player.setWorkingRatingDeviation(calculateNewRD(player.getGlicko2RatingDeviation(), player.getVolatility()));
                 player.setWorkingVolatility(player.getVolatility());
+                 */
             }
         }
 

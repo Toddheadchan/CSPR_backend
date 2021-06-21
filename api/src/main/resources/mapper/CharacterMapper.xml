@@ -8,15 +8,15 @@
     <select id="getCharacterDataByPlayerAndCharacter" resultType="com.cnsmash.cspr.api.entity.Character">
         select
             player_id as playerId,
-            `character`,
-            win,
-            lose,
-            solo,
-            starter,
-            counter,
-            `drop`,
-            character_data as characterData,
-            stage_data as stageData
+            `character`.`character`,
+            `character`.win,
+            `character`.lose,
+            `character`.solo,
+            `character`.starter,
+            `character`.counter,
+            `character`.`drop`,
+            `character`.character_data as characterData,
+            `character`.stage_data as stageData
         from `character`
         where player_id = #{playerId} and `character` = #{character}
     </select>

@@ -42,7 +42,7 @@
             and (player.`keyword` like concat('%',#{keyword,jdbcType=VARCHAR},'%') or player.`player_tag` like concat('%',#{keyword,jdbcType=VARCHAR},'%'))
         </if>
         <if test="character != null and character != 'random'">
-            and player.`main_character` = #{character} or player.`most_character` = #{character}
+            and (player.`main_character` = #{character} or player.`most_character` = #{character})
         </if>
     </select>
 

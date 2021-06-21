@@ -7,6 +7,7 @@
     <!--按照时间范围查询比赛-->
     <select id="getCsprLog" resultType="com.cnsmash.cspr.api.vo.PlayerCsprLog">
         select
+            `cspr_log`.`log_id` as logId,
             `tournament`.date,
             `cspr_log`.new_cspr as cspr,
             `cspr_log`.old_cspr as lastCspr,
@@ -16,6 +17,7 @@
         from `cspr_log`
         left join tournament on tournament.tournament_id = cspr_log.tournament_id
         left join participate on tournament.tournament_id = participate.tournament_id and participate.player_id = #{playerId}
-        where (tournament.season = #{season} or cspr_log.tournament_id = -#{season}) and cspr_log.player_id = #{playerId}
+        where (`tournament`.`season` = #{season} or cspr_log.tournament_id = -#{season}) and cspr_log.player_id = #{playerId}
+        order by `tournament`.`date`
     </select>
 </mapper>

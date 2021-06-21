@@ -95,6 +95,14 @@ public class Rating {
         this.ratingDeviation = ratingDeviation;
     }
 
+    public void RDRateCorrection(double rate, boolean append) {
+        if (append) {
+            this.ratingDeviation *= rate;
+        } else {
+            this.ratingDeviation /= rate;
+        }
+    }
+
     /**
      * Return the rating deviation of the player scaled down
      * to the scale used by the algorithm's internal workings.
