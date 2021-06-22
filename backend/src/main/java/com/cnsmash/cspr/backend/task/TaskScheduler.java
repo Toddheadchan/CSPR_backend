@@ -70,7 +70,13 @@ public class TaskScheduler {
         List<Tournament> tournamentList = iTournamentService.list();
         for (Tournament tournament : tournamentList) {
             // tournament已经结束
-            if (tournament.getStatus() == 3) {
+            if (tournament.getStatus() == 2) {
+                continue;
+            }
+            // tournament已经过了结束时间一周
+            LocalDateTime updateDDL = tournament.getDate().plusDays(7);
+            LocalDateTime now = LocalDateTime.now();
+            if (now.compareTo(updateDDL) == 1) {
                 continue;
             }
             taskList.add(new Task(TaskType.CHECK_TOURNAMENT, tournament.getTournamentId()));

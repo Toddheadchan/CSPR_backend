@@ -68,6 +68,7 @@
             player.`main_character_color` as mainCharacterColor,
             player.`most_character` as mostCharacter,
             cspr.`cspr`,
+            cspr.`ranking`,
             stats.`tournament_count` as tournamentCount,
             stats.`set_win` as setWin,
             stats.`set_lose` as setLose,

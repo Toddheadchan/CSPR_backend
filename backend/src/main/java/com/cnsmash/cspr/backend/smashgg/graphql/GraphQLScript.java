@@ -52,6 +52,10 @@ public class GraphQLScript {
         List<Map<String, Object>> nodeList = (List<Map<String, Object>>) ((Map)((Map)((Map)result.get("data")).get("event")).get("sets")).get("nodes");
         List<Long> setList = new LinkedList<>();
         for (Map<String, Object> node: nodeList) {
+            // 未进行的比赛无法插入，筛去
+            if (node.get("id").toString().contains("preview")) {
+                continue;
+            }
             setList.add(Long.valueOf(node.get("id").toString()));
         }
         return setList;

@@ -41,8 +41,7 @@ class BackendApplicationTests {
 
     @Test
     void getAllTournament() {
-        LeagueFetch.getLeagueByOwner(950793, 1);
-        LeagueFetch.getLeagueByOwner(1060133, 2);
+        LeagueFetch.getLeagueByOwnerThroughAll(689403, 5);
     }
 
     @Test

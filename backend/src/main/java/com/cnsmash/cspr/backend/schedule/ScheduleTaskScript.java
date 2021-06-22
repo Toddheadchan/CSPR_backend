@@ -15,13 +15,19 @@ public class ScheduleTaskScript {
 
     private static TaskManager taskManager = new TaskManager();
 
+    private static boolean flag = false;
+
     @Scheduled(cron = "0 0 2/12 * * *")
     public void backendTask() {
         taskManager.schedule();
     }
 
-    @Scheduled(cron = "0 0 */1 * * *")
+    @Scheduled(cron = "0 */1 * * * *")
     public void taskExecute() {
+        if (flag == false) {
+            flag = true;
+            this.backendTask();
+        }
         taskManager.run();
     }
 

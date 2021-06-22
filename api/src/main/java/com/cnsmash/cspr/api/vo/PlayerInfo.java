@@ -25,6 +25,8 @@ public class PlayerInfo {
 
     private Integer cspr;
 
+    private Integer ranking;
+
     private String tournamentCount;
 
     private String setWin;

@@ -60,4 +60,31 @@ public class LeagueFetch {
         TournamentFetch.getTournamentByLeague(leagueId);
     }
 
+    // task中执行的league获取
+    // 只往下查未添加至数据库的tournament
+    public static void leagueFetchTask(long leagueId, int regionId) {
+        League league = graphQLScript.getLeagueDetail(leagueId, regionId);
+        iLeagueService.saveOrUpdate(league);
+        TournamentFetch.updateNewLeagueTournament(leagueId);
+    }
+
+    // 强制获取所有
+    // 获取最新的league列表
+    public static void getLeagueByOwnerThroughAll(long ownerId, int regionId) {
+        int page = 0;
+        boolean stopFlag = false;
+        List<Long> newLeagueList = new LinkedList<>();
+        while (stopFlag == false) {
+            page += 1;
+            List<Long> leagueList = graphQLScript.getLeagueListByOwner(ownerId, page);
+            newLeagueList.addAll(leagueList);
+            if (leagueList.size() < 10) {
+                stopFlag = true;
+            }
+        }
+        for (Long leagueId: newLeagueList) {
+            getLeagueDetail(leagueId, regionId);
+        }
+    }
+
 }

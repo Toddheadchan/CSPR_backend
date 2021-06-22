@@ -152,4 +152,16 @@ public class TournamentFetch {
         iTournamentService.setDisplayResult(tournamentId, displayResultStr);
     }
 
+    // task中执行的league获取调用
+    // 只往下查未添加至数据库的tournament
+    public static void updateNewLeagueTournament(long leagueId) {
+        List<Long> tournamentList = graphQLScript.getTournamentListByLeague(leagueId);
+        for (long tournamentId: tournamentList) {
+            getTournamentDetail(tournamentId);
+            if (iTournamentService.getById(tournamentId) == null) {
+                getTournamentDetail(tournamentId);
+            }
+        }
+    }
+
 }

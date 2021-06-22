@@ -57,7 +57,7 @@ public class Task {
         if (this.taskType == TaskType.ACCOUNT_QUERY) {
             LeagueFetch.getLeagueByOwner(this.value, (int)this.subParam);
         } else if (this.taskType == TaskType.CHECK_LEAGUE) {
-            LeagueFetch.getLeagueDetail(this.value, (int)this.subParam);
+            LeagueFetch.leagueFetchTask(this.value, (int)this.subParam);
         } else if (this.taskType == TaskType.CHECK_TOURNAMENT) {
             TournamentFetch.getTournamentDetail(this.value);
         } else if (this.taskType == TaskType.CSPR_CALCULATION) {

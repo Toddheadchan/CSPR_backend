@@ -11,11 +11,16 @@
             player.`avatar`,
             player.`nation`,
             player.`region_id`,
-            player.`main_character`,
-            player.`main_character_color`,
+            if (player.`main_character` is not null, player.`main_character`, player.`most_character`) as mainCharacter,
+            if (player.`main_character_color` is not null, player.`main_character_color`, 0) as mainCharacterColor,
             cspr.`cspr`
         from player left join cspr on cspr.player_id = player.player_id
-        where cspr.`season` = #{season} and player.`region_id` = #{regionId}
+        where
+            <if test="regionId != -1">
+                player.`region_id` = #{regionId} and
+            </if>
+            cspr.`season` = #{season}
+            and cspr.`ranking` is not null
         ORDER BY cspr.`ranking`
         <if test="limit != 0">
             limit #{limit}

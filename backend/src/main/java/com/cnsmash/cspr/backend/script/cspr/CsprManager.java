@@ -137,11 +137,9 @@ public class CsprManager {
                 Rating player = getPlayer(participate.getPlayerId());
                 int standing = participate.getStanding();
                 double cspr = player.getRating();
-                double rankingRate = a / sprMap.get(standing) + Math.max(0, b * (avgPlayerCount - standing) / 2 / avgPlayerCount);
+                // double rankingRate = a / sprMap.get(standing) + Math.max(0, b * (avgPlayerCount - standing) / 2 / avgPlayerCount);
+                double rankingRate = a / sprMap.get(standing) + b * (avgPlayerCount - standing) / 2 / avgPlayerCount;
                 double playerBonus =  bonusRate * rankingRate * (totalBonus - (cspr > 1500 ? Math.pow(2, (cspr - 1500) / 173.7178) : 1));
-                if (participate.getPlayerId() == 1978478) {
-                    System.out.println("playerId: " + participate.getPlayerId() + ", rankingRate:  " + rankingRate + ", bonus: " + playerBonus);
-                }
                 player.setRating(cspr + playerBonus);
 
                 // rd修正
@@ -185,9 +183,9 @@ public class CsprManager {
                 log.setStanding(participate.getStanding());
                 iLogService.saveOrUpdate(log);
 
-                // rd回复
+                // rd恢复
                 Rating player = getPlayer(participate.getPlayerId());
-                player.RDRateCorrection(bonusRate, true);
+                player.RDRateCorrection(bonusRate, false);
             }
 
         }
