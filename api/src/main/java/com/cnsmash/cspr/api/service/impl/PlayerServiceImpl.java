@@ -1,6 +1,7 @@
 package com.cnsmash.cspr.api.service.impl;
 
 import com.cnsmash.cspr.api.dto.PlayerListFilterDto;
+import com.cnsmash.cspr.api.dto.UpdatePlayerLiteDto;
 import com.cnsmash.cspr.api.entity.*;
 import com.cnsmash.cspr.api.mapper.*;
 import com.cnsmash.cspr.api.service.IParticipateService;
@@ -92,6 +93,24 @@ public class PlayerServiceImpl extends ServiceImpl<PlayerMapper, Player> impleme
         csprMapper.deleteByMap(queryMap);
         playerMapper.deleteByMap(queryMap);
         return;
+    }
+
+    @Override
+    public void updatePlayerLite(UpdatePlayerLiteDto updatePlayerLiteDto) {
+        Player player = playerMapper.selectById(updatePlayerLiteDto.getPlayerId());
+        if (updatePlayerLiteDto.getRegionId() != null) {
+            player.setRegionId(updatePlayerLiteDto.getRegionId());
+        }
+        if (updatePlayerLiteDto.getNation() != null) {
+            player.setNation(updatePlayerLiteDto.getNation());
+        }
+        if (updatePlayerLiteDto.getMainCharacter() != null) {
+            player.setMainCharacter(updatePlayerLiteDto.getMainCharacter());
+        }
+        if (updatePlayerLiteDto.getMainCharacterColor() != null) {
+            player.setMainCharacterColor(updatePlayerLiteDto.getMainCharacterColor());
+        }
+        playerMapper.updateById(player);
     }
 
 }

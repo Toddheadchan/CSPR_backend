@@ -2,6 +2,7 @@ package com.cnsmash.cspr.api.service;
 
 import com.cnsmash.cspr.api.dto.PlayerTournamentFilterDto;
 import com.cnsmash.cspr.api.dto.TournamentFilterDto;
+import com.cnsmash.cspr.api.dto.UpdateTournamentDto;
 import com.cnsmash.cspr.api.entity.Tournament;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cnsmash.cspr.api.vo.PlayerTournament;
@@ -69,4 +70,10 @@ public interface ITournamentService extends IService<Tournament> {
      */
     public List<Tournament> getTournamentBySeason(int season);
 
+
+    /**
+     * 轻量级比赛信息更新
+     * @param updateTournamentDto 更新数据结构
+     */
+    public void updateTournamentLite(UpdateTournamentDto updateTournamentDto);
 }

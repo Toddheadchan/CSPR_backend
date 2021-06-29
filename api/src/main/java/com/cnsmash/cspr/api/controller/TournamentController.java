@@ -2,6 +2,7 @@ package com.cnsmash.cspr.api.controller;
 
 
 import com.cnsmash.cspr.api.dto.TournamentFilterDto;
+import com.cnsmash.cspr.api.dto.UpdateTournamentDto;
 import com.cnsmash.cspr.api.entity.Tournament;
 import com.cnsmash.cspr.api.service.ITournamentService;
 import com.cnsmash.cspr.api.vo.TournamentDetail;
@@ -65,6 +66,13 @@ public class TournamentController {
         PaginationVo<TournamentStanding> pagination = new PaginationVo(tournamentStanding.size(), 8, tournamentStanding.subList((page - 1) * 8, Integer.min(page * 8, tournamentStanding.size() - 1)));
         ApiResult<PaginationVo<TournamentStanding>> result = new ApiResult<>();
         return result.ok(pagination);
+    }
+
+    @PostMapping("/update/lite")
+    @ResponseBody
+    public ApiResult<String> updateTournamentLite(@RequestBody UpdateTournamentDto updateTournamentDto) {
+        iTournamentService.updateTournamentLite(updateTournamentDto);
+        return ApiResult.ok("已更新比赛信息");
     }
 }
 

@@ -1,6 +1,7 @@
 package com.cnsmash.cspr.api.service;
 
 import com.cnsmash.cspr.api.dto.PlayerListFilterDto;
+import com.cnsmash.cspr.api.dto.UpdatePlayerLiteDto;
 import com.cnsmash.cspr.api.entity.Player;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cnsmash.cspr.api.vo.PlayerInfo;
@@ -27,5 +28,7 @@ public interface IPlayerService extends IService<Player> {
     public PlayerLite getPlayerLite(long playerId);
 
     public void attachPlayerId(long subPlayerId, long mainPlayerId);
+
+    public void updatePlayerLite(UpdatePlayerLiteDto updatePlayerLiteDto);
 
 }

@@ -2,6 +2,7 @@ package com.cnsmash.cspr.api.service.impl;
 
 import com.cnsmash.cspr.api.dto.PlayerTournamentFilterDto;
 import com.cnsmash.cspr.api.dto.TournamentFilterDto;
+import com.cnsmash.cspr.api.dto.UpdateTournamentDto;
 import com.cnsmash.cspr.api.entity.Participate;
 import com.cnsmash.cspr.api.entity.Set;
 import com.cnsmash.cspr.api.entity.Tournament;
@@ -125,5 +126,15 @@ public class TournamentServiceImpl extends ServiceImpl<TournamentMapper, Tournam
 
     public List<Tournament> getTournamentBySeason(int season) {
         return tournamentMapper.getTournamentBySeason(season);
+    }
+
+    public void updateTournamentLite(UpdateTournamentDto updateTournamentDto) {
+        Tournament tournament = tournamentMapper.selectById(updateTournamentDto.getTournamentId());
+        tournament.setCsprRate(updateTournamentDto.getCsprRate());
+        tournament.setOnline(updateTournamentDto.getOnline());
+        if (updateTournamentDto.getVod() != null) {
+            tournament.setVod(updateTournamentDto.getVod());
+        }
+        tournamentMapper.updateById(tournament);
     }
 }

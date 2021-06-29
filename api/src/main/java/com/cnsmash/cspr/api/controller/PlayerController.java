@@ -3,6 +3,7 @@ package com.cnsmash.cspr.api.controller;
 
 import com.cnsmash.cspr.api.dto.PlayerListFilterDto;
 import com.cnsmash.cspr.api.dto.PlayerTournamentFilterDto;
+import com.cnsmash.cspr.api.dto.UpdatePlayerLiteDto;
 import com.cnsmash.cspr.api.entity.Player;
 import com.cnsmash.cspr.api.entity.Stats;
 import com.cnsmash.cspr.api.service.ILogService;
@@ -94,5 +95,11 @@ public class PlayerController {
         return ApiResult.ok("已合并两个账号");
     }
 
+    @PostMapping("/update/lite")
+    @ResponseBody
+    public ApiResult<String> updatePlayerLite(@RequestBody UpdatePlayerLiteDto updatePlayerLiteDto) {
+        iPlayerService.updatePlayerLite(updatePlayerLiteDto);
+        return ApiResult.ok("已更新选手信息");
+    }
 }
 
